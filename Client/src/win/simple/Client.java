@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.util.Date;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Client {
@@ -40,6 +41,7 @@ public class Client {
        
         try {
             this.ProxyServerSocket = new Socket(proxyaddress, proxyport);
+            new Heartbeat(this.ProxyServerSocket).start();        //创建心跳
             new ClientThreadData(this.ProxyServerSocket).start();
 
             System.out.println("[" + new Date() + "] 代理服务器连接成功");
@@ -62,9 +64,14 @@ public class Client {
                 String projectclientport = "";
                 String localhost = "";
                 String localhostport = "";
+                String line = "";
 
                 while(true) {
-                    String line = scanner.nextLine();
+                    try {
+                        line = scanner.nextLine();
+                    }catch(NoSuchElementException e) {
+
+                    }
 
                     try {
                         if(line.equals("newtunnle")) {
@@ -87,10 +94,7 @@ public class Client {
                         if(line.equals("help")) {
                             System.out.println(Variable.Help.toString());
                         }
-                        
-                        if(line.equals("")) {
-                        	System.out.print("[" + new Date() + "] >>");
-                        }
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

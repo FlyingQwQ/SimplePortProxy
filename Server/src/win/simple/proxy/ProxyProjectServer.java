@@ -47,8 +47,16 @@ public class ProxyProjectServer extends Thread{
 				Variable.ClientProxyServerArray.put(socket, userproxyVariable);
 			}
 
+			socket.getOutputStream().write(("info-createtunnlesuccess-" + teledataport + "-" + teleport).getBytes());
+			socket.getOutputStream().flush();
 			System.out.println("[" + new Date() + "] 创建隧道成功，隧道服务器端口:" + teledataport + "，项目连接端口:" + teleport);
 		} catch (IOException e) {
+			try {
+				socket.getOutputStream().write(("error-createtunnlefail-" + teledataport + "-" + teleport).getBytes());
+				socket.getOutputStream().flush();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 			System.out.println("[" + new Date() + "][*] 创建隧道失败，隧道服务器端口:" + teledataport + "，项目连接端口:" + teleport + " 可能被系统防火墙拦截或端口已经被占用！");
 		}
 	}
@@ -65,6 +73,8 @@ public class ProxyProjectServer extends Thread{
 
 				System.out.println("[" + new Date() + "] 项目客户端" + teleProject.getInetAddress().getHostAddress() + "请求连接");
 			}
+		}catch(NullPointerException e) {
+
 		}catch(SocketException e) {
 
 		}catch (IOException e) {

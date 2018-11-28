@@ -5,6 +5,7 @@ import win.simple.Variable;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.util.Date;
 
@@ -27,7 +28,6 @@ public class ConnectTunnleServer extends Thread{
     @Override
     public void run() {
         try {
-            System.out.println("[" + new Date() + "] 隧道创建成功，外网项目客户端连接端口:" + this.tunnleport + " --> " + this.localhost + ":" + this.localhostport);
             while(true) {
                 this.TunnleServerSocket = new Socket(Variable.ProxyServerAddress, this.port);
                 InputStream in = this.TunnleServerSocket.getInputStream();
@@ -40,7 +40,9 @@ public class ConnectTunnleServer extends Thread{
                 new ThreadData(this.ProjectServerSocket, this.TunnleServerSocket).start();
             }
 
-        } catch (IOException e) {
+        }catch(ConnectException e) {
+            System.out.println("[" + new Date() + "][*] 无法连接到隧道通讯服务器，隧道连接端口" + this.port + "有误！");
+        }catch (IOException e) {
             e.printStackTrace();
         }
     }

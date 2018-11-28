@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: win.simple.Client
+Class-Path: lib\json-lib-2.2.2-jdk15.jar
+

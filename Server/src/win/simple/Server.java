@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 public class Server {
 
@@ -33,7 +34,15 @@ public class Server {
 	public static void main(String[] args) {
 		System.out.println("[" + new Date() + "] " + Variable.Version);
 		Server server = new Server();
-		server.StartProxy(12758);
+		Scanner scanner = new Scanner(System.in);
+		int ProxyPort = Config.GetProxyPort();
+		if(ProxyPort != -1) {
+			server.StartProxy(ProxyPort);
+		}else {
+			System.out.println("[" + new Date() + "] 请输入代理服务器端口");
+			server.StartProxy(scanner.nextInt());
+		}
+
 	}
 	
 	

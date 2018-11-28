@@ -15,17 +15,26 @@ public class Config {
 	
 	public static String GetServerAddress() {
 		String ConfigJSON = GetJSONConfig();
-		return JSONObject.fromObject(ConfigJSON).getString("serveraddress");
+		if(ConfigJSON != null) {
+			return JSONObject.fromObject(ConfigJSON).getString("serveraddress");
+		}
+		return null;
 	}
 	
 	public static String GetServerPort() {
 		String ConfigJSON = GetJSONConfig();
-		return JSONObject.fromObject(ConfigJSON).getString("serverport");
+		if(ConfigJSON != null) {
+			return JSONObject.fromObject(ConfigJSON).getString("serverport");
+		}
+		return null;
 	}
 	
 	public static JSONArray GetTunnleList() {
 		String ConfigJSON = GetJSONConfig();
-		return JSONArray.fromObject(JSONObject.fromObject(ConfigJSON).getJSONArray("tunnle"));
+		if(ConfigJSON != null) {
+			return JSONArray.fromObject(JSONObject.fromObject(ConfigJSON).getJSONArray("tunnle"));
+		}
+		return null;
 	}
 	
 	public static void AddTunnleToServer(Socket socket) {

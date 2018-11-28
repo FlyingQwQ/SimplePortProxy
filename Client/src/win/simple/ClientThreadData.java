@@ -49,6 +49,20 @@ public class ClientThreadData extends Thread{
                     new ConnectTunnleServer(Integer.parseInt(divisionContent2[1]), Integer.parseInt(divisionContent2[2]), divisionContent2[3], Integer.parseInt(divisionContent2[4])).start();
                 }
             }
+
+            if(divisionContent2.length >= 4) {
+                if(divisionContent2[0].equals("info")) {
+                    if(divisionContent2[1].equals("createtunnlesuccess")) {
+                        System.out.println("[" + new Date() + "] 隧道创建成功，外网项目客户端连接地址:" + Variable.ProxyServerAddress + ":" + divisionContent2[3]);
+                    }
+                }
+
+                if(divisionContent2[0].equals("error")) {
+                    if(divisionContent2[1].equals("createtunnlefail")) {
+                        System.out.println("[" + new Date() + "][*] 隧道创建失败，隧道通讯端口" + divisionContent2[2] + " 外网项目客户端连接端口:" + divisionContent2[3].replace("tunneldataport", "") + "，端口可能已经被占用！");
+                    }
+                }
+            }
         }
 
     }
