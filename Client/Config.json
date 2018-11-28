@@ -1,0 +1,23 @@
+{
+	"serveraddress":"127.0.0.1",
+	"serverport":"12758",
+	"tunnle":[
+		{"registerproxy":[
+			{
+			"localhost":"127.0.0.1",
+			"localhostport":"25565",
+			"teledataport":"4561",
+			"teleport":"1275"
+			}
+		]},
+		
+		{"registerproxy":[
+			{
+			"localhost":"127.0.0.2",
+			"localhostport":"25565",
+			"teledataport":"4562",
+			"teleport":"1276"
+			}
+		]}
+	]
+}
